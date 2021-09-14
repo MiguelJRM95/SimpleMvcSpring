@@ -1,28 +1,25 @@
 package com.springmvc.service;
 
 import com.springmvc.model.Course;
+import com.springmvc.repository.CourseRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CourseService implements  CrudService<Course>{
 
-	private List<Course> courses;
+	private CourseRepository repository;
 
-	public CourseService() {
-		courses = new ArrayList<>();
-		Course springBoot = new Course(1,
-				"Getting started with SpringBoot 2",
-				"learning Spring",
-				"https://www.google.com");
-		courses.add(springBoot);
+	public CourseService(CourseRepository courseRepository) {
+		repository = courseRepository;
 	}
 
 
 	@Override
 	public List<Course> list() {
-		return courses;
+		return repository.findAll();
 	}
 
 	@Override
